@@ -36,10 +36,13 @@ br {
 <br/>   
      <table class="table table-bordered table-hover table-striped tablesorter">
 <caption><b>Severity</b></caption>
+<col width="250">
                 <thead>
                 <tr>                  
                   <th class="header"> Consequences (Hazards/Critical Conditions) <i class="icon-sort"></i></th>
-                  <th class="header"> Missing Information/Facts  <i class="icon-sort"></i></th>                     
+                  <th class="header"> Missing Information/Facts  <i class="icon-sort"></i></th> 
+                  <th class="header"> Manually Accepted Missing Facts <i class="icon-sort"></i></th>   
+                  <th class="header"> Manually Added Missing Facts <i class="icon-sort"></i></th>                    
                   <th class="header"> Uncertainty/Likelihood <i class="icon-sort"></i></th>
                   <th class="header"> Severity <i class="icon-sort"></i></th>                 
                 </tr>
@@ -52,14 +55,22 @@ br {
                     <td> <ul>
 {% for missinginfo in consequence.missinginfo_set.all %}
     <li><a href="{% url 'results:missingdetail' missinginfo.id %}">{{ missinginfo.missinginfo_text }}</a></li>{% endfor %} </ul>
-</td>                    
-                    <td> <ul>
-{% for likelihood in consequence.likelihood_set.all %}
-    <p>{{ likelihood.likelihood_text }}</li>{% endfor %} </p>
 </td>
                     <td> <ul>
+{% for missinginfo in consequence.manualcomments_set.all %}
+    <li><a href="{% url 'results:manualcommentsdetail' missinginfo.id %}">{{ missinginfo.missinginfo_text }}</a></li>{% endfor %} </ul>
+</td>                  
+                    <td> <ul>
+{% for missinginfo in consequence.manualaddinfo_set.all %}
+    <li><a href="{% url 'results:manualaddeddetail' missinginfo.id %}">{{ missinginfo.missinginfo_text }}</a></li>{% endfor %} </ul>
+</td>                     
+                    <td> <ul>
+{% for likelihood in consequence.likelihood_set.all %}
+    <p>{{ likelihood.likelihood_text }}</p>{% endfor %} </ul>
+</td>
+                    <td>  
 {% for severity in consequence.severity_set.all %}
-    <p>{{ severity.severity_text }}</p>{% endfor %} </ul>
+    <p>{{ severity.severity_text }}</p>{% endfor %}  
 </td>
                 </tr>
             {% endfor %}

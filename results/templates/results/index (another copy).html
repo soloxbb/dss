@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 90%;
+}
+
+table td, table th {
+    border: 1px solid #ddd;
+    padding: 12px;
+}
+
+table tr:nth-child(even){background-color: #f2f2f2;}
+
+table tr:hover {background-color: #ddd;}
+
+table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+br {
+  content: " ";
+  display: block;
+  margin: 10px;
+}
+
+</style>
+</head>
+<body>
+
+<b> <font size = "4", style="font-family: Trebuchet MS, Arial, Helvetica, sans-serif">You're looking at the Risk Matrix! </font></b>
+<br/>  
+     <table>
+<caption><b>Severity</b></caption>
+                <thead>
+                <tr>
+                  <th class="header">   <i class="icon-sort"></i></th>  
+                  <th class="header">   <i class="icon-sort"></i></th>                
+                  <th class="header"> Negotiable <i class="icon-sort"></i></th>
+                  <th class="header"> Marginal <i class="icon-sort"></i></th>                     
+                  <th class="header"> Critical <i class="icon-sort"></i></th>
+                  <th class="header"> Catastrophic <i class="icon-sort"></i></th>                 
+                </tr>
+            </thead>
+            <tbody>
+                <tr> 
+                    <td rowspan="4"><b>Likelihood</b></td>
+                    <td> Definite  </td>                  
+                    <td> {% for consequence in consequence_list %}
+{% for severity in consequence.severity_set.all %}
+{% for likelihood in consequence.likelihood_set.all %}
+{% if severity.severity_text == "Negotiable" and likelihood.likelihood_text == "Definite"%}  {% if consequence.missinginfo_set.count == 0 %} <a href="{% url 'results:mitigation' consequence.id %}">{{ consequence.consequence_text }},
+{% else %}<a href="{% url 'results:detail' consequence.id %}">{{ consequence.consequence_text }}<font size="2" color="red">(?{{consequence.missinginfo_set.count}})</font></a> {% endif %}{% endif %}{% endfor %}{% endfor %}{% endfor %} </td>  
+                    <td> {% for consequence in consequence_list %}
+{% for severity in consequence.severity_set.all %}
+{% for likelihood in consequence.likelihood_set.all %}
+{% if severity.severity_text == "Marginal" and likelihood.likelihood_text == "Definite"%}  {% if consequence.missinginfo_set.count == 0 %} <a href="{% url 'results:mitigation' consequence.id %}">{{ consequence.consequence_text }},
+{% else %}<a href="{% url 'results:detail' consequence.id %}">{{ consequence.consequence_text }}<font size="2" color="red">(?{{consequence.missinginfo_set.count}})</font></a> {% endif %}{% endif %}{% endfor %}{% endfor %}{% endfor %} </td>                  
+                    <td> {% for consequence in consequence_list %}
+{% for severity in consequence.severity_set.all %}
+{% for likelihood in consequence.likelihood_set.all %}
+{% if severity.severity_text == "Critical" and likelihood.likelihood_text == "Definite"%}  {% if consequence.missinginfo_set.count == 0 %} <a href="{% url 'results:mitigation' consequence.id %}">{{ consequence.consequence_text }},
+{% else %} <a href="{% url 'results:detail' consequence.id %}">{{ consequence.consequence_text }}<font size="2" color="red">(?{{consequence.missinginfo_set.count}})</font></a> {% endif %}{% endif %}{% endfor %}{% endfor %}{% endfor %} </td>  
+                    <td> {% for consequence in consequence_list %}
+{% for severity in consequence.severity_set.all %}
+{% for likelihood in consequence.likelihood_set.all %}
+{% if severity.severity_text == "Catastrophic" and likelihood.likelihood_text == "Definite"%} {% if consequence.missinginfo_set.count == 0 %} <a href="{% url 'results:mitigation' consequence.id %}">{{ consequence.consequence_text }},
+{% else %} <a href="{% url 'results:detail' consequence.id %}">{{ consequence.consequence_text }}<font size="2" color="red">(?{{consequence.missinginfo_set.count}})</font></a> {% endif %}{% endif %}{% endfor %}{% endfor %}{% endfor %} </td>  
+                </tr>
+                <tr> 
+                    <td> Very Likely </td>                  
+                    <td> {% for consequence in consequence_list %}
+{% for severity in consequence.severity_set.all %}
+{% for likelihood in consequence.likelihood_set.all %}
+{% if severity.severity_text == "Negotiable" and likelihood.likelihood_text == "Very Likely"%} {% if consequence.missinginfo_set.count == 0 %} <a href="{% url 'results:mitigation' consequence.id %}">{{ consequence.consequence_text }},
+{% else %} <a href="{% url 'results:detail' consequence.id %}">{{ consequence.consequence_text }}<font size="2" color="red">(?{{consequence.missinginfo_set.count}})</font></a>, {% endif %}{% endif %}{% endfor %}{% endfor %}{% endfor %} </td>  
+                    <td> {% for consequence in consequence_list %}
+{% for severity in consequence.severity_set.all %}
+{% for likelihood in consequence.likelihood_set.all %}
+{% if severity.severity_text == "Marginal" and likelihood.likelihood_text == "Very Likely"%} {% if consequence.missinginfo_set.count == 0 %} <a href="{% url 'results:mitigation' consequence.id %}">{{ consequence.consequence_text }},
+{% else %} <a href="{% url 'results:detail' consequence.id %}">{{ consequence.consequence_text }}<font size="2" color="red">(?{{consequence.missinginfo_set.count}})</font></a>, {% endif %}{% endif %}{% endfor %}{% endfor %}{% endfor %} </td>                  
+                    <td> {% for consequence in consequence_list %}
+{% for severity in consequence.severity_set.all %}
+{% for likelihood in consequence.likelihood_set.all %}
+{% if severity.severity_text == "Critical" and likelihood.likelihood_text == "Very Likely"%} {% if consequence.missinginfo_set.count == 0 %} <a href="{% url 'results:mitigation' consequence.id %}">{{ consequence.consequence_text }},
+{% else %} <a href="{% url 'results:detail' consequence.id %}">{{ consequence.consequence_text }}<font size="2" color="red">(?{{consequence.missinginfo_set.count}})</font></a>, {% endif %}{% endif %}{% endfor %}{% endfor %}{% endfor %} </td>  
+                    <td> {% for consequence in consequence_list %}
+{% for severity in consequence.severity_set.all %}
+{% for likelihood in consequence.likelihood_set.all %}
+{% if severity.severity_text == "Catastrophic" and likelihood.likelihood_text == "Very Likely"%} {% if consequence.missinginfo_set.count == 0 %} <a href="{% url 'results:mitigation' consequence.id %}">{{ consequence.consequence_text }},
+{% else %} <a href="{% url 'results:detail' consequence.id %}">{{ consequence.consequence_text }}<font size="2" color="red">(?{{consequence.missinginfo_set.count}})</font></a>, {% endif %}{% endif %}{% endfor %}{% endfor %}{% endfor %} </td>
+                </tr>
+                <tr> 
+                    <td> Likely </td>                  
+                    <td> {% for consequence in consequence_list %}
+{% for severity in consequence.severity_set.all %}
+{% for likelihood in consequence.likelihood_set.all %}
+{% if severity.severity_text == "Negotiable" and likelihood.likelihood_text == "Likely"%} {% if consequence.missinginfo_set.count == 0 %} <a href="{% url 'results:mitigation' consequence.id %}">{{ consequence.consequence_text }},
+{% else %} <a href="{% url 'results:detail' consequence.id %}">{{ consequence.consequence_text }}<font size="2" color="red">(?{{consequence.missinginfo_set.count}})</font></a>, {% endif %}{% endif %}{% endfor %}{% endfor %}{% endfor %} </td>  
+                    <td> {% for consequence in consequence_list %}
+{% for severity in consequence.severity_set.all %}
+{% for likelihood in consequence.likelihood_set.all %}
+{% if severity.severity_text == "Marginal" and likelihood.likelihood_text == "Likely"%} {% if consequence.missinginfo_set.count == 0 %} <a href="{% url 'results:mitigation' consequence.id %}">{{ consequence.consequence_text }},
+{% else %} <a href="{% url 'results:detail' consequence.id %}">{{ consequence.consequence_text }}<font size="2" color="red">(?{{consequence.missinginfo_set.count}})</font></a>, {% endif %}{% endif %}{% endfor %}{% endfor %}{% endfor %} </td>                  
+                    <td> {% for consequence in consequence_list %}
+{% for severity in consequence.severity_set.all %}
+{% for likelihood in consequence.likelihood_set.all %}
+{% if severity.severity_text == "Critical" and likelihood.likelihood_text == "Likely"%} {% if consequence.missinginfo_set.count == 0 %} <a href="{% url 'results:mitigation' consequence.id %}">{{ consequence.consequence_text }},
+{% else %} <a href="{% url 'results:detail' consequence.id %}">{{ consequence.consequence_text }}<font size="2" color="red">(?{{consequence.missinginfo_set.count}})</font></a>, {% endif %}{% endif %}{% endfor %}{% endfor %}{% endfor %} </td>  
+                    <td> {% for consequence in consequence_list %}
+{% for severity in consequence.severity_set.all %}
+{% for likelihood in consequence.likelihood_set.all %}
+{% if severity.severity_text == "Catastrophic" and likelihood.likelihood_text == "Likely"%} {% if consequence.missinginfo_set.count == 0 %} <a href="{% url 'results:mitigation' consequence.id %}">{{ consequence.consequence_text }},
+{% else %} <a href="{% url 'results:detail' consequence.id %}">{{ consequence.consequence_text }}<font size="2" color="red">(?{{consequence.missinginfo_set.count}})</font></a>, {% endif %}{% endif %}{% endfor %}{% endfor %}{% endfor %} </td>
+                </tr>
+                <tr> 
+                    <td> Unlikely </td>                  
+                    <td> {% for consequence in consequence_list %}
+{% for severity in consequence.severity_set.all %}
+{% for likelihood in consequence.likelihood_set.all %}
+{% if severity.severity_text == "Negotiable" and likelihood.likelihood_text == "Unlikely"%} {% if consequence.missinginfo_set.count == 0 %} <a href="{% url 'results:mitigation' consequence.id %}">{{ consequence.consequence_text }},
+{% else %} <a href="{% url 'results:detail' consequence.id %}">{{ consequence.consequence_text }}<font size="2" color="red">(?{{consequence.missinginfo_set.count}})</font></a>, {% endif %}{% endif %}{% endfor %}{% endfor %}{% endfor %} </td>  
+                    <td> {% for consequence in consequence_list %}
+{% for severity in consequence.severity_set.all %}
+{% for likelihood in consequence.likelihood_set.all %}
+{% if severity.severity_text == "Marginal" and likelihood.likelihood_text == "Unlikely"%} {% if consequence.missinginfo_set.count == 0 %} <a href="{% url 'results:mitigation' consequence.id %}">{{ consequence.consequence_text }},
+{% else %} <a href="{% url 'results:detail' consequence.id %}">{{ consequence.consequence_text }}<font size="2" color="red">(?{{consequence.missinginfo_set.count}})</font></a>, {% endif %}{% endif %}{% endfor %}{% endfor %}{% endfor %} </td>                  
+                    <td> {% for consequence in consequence_list %}
+{% for severity in consequence.severity_set.all %}
+{% for likelihood in consequence.likelihood_set.all %}
+{% if severity.severity_text == "Critical" and likelihood.likelihood_text == "Unlikely"%} {% if consequence.missinginfo_set.count == 0 %} <a href="{% url 'results:mitigation' consequence.id %}">{{ consequence.consequence_text }},
+{% else %} <a href="{% url 'results:detail' consequence.id %}">{{ consequence.consequence_text }}<font size="2" color="red">(?{{consequence.missinginfo_set.count}})</font></a>, {% endif %}{% endif %}{% endfor %}{% endfor %}{% endfor %} </td>  
+                    <td> {% for consequence in consequence_list %}
+{% for severity in consequence.severity_set.all %}
+{% for likelihood in consequence.likelihood_set.all %}
+{% if severity.severity_text == "Catastrophic" and likelihood.likelihood_text == "Unlikely"%} {% if consequence.missinginfo_set.count == 0 %} <a href="{% url 'results:mitigation' consequence.id %}">{{ consequence.consequence_text }},
+{% else %} <a href="{% url 'results:detail' consequence.id %}">{{ consequence.consequence_text }}<font size="2" color="red">(?{{consequence.missinginfo_set.count}})</font></a>, {% endif %}{% endif %}{% endfor %}{% endfor %}{% endfor %} </td>
+                </tr>
+            </tbody>
+     </table>
+<p>Note:</p>
+<ol>
+<li> <font size="2" color="red">(?n)</font> means the number of missing information, please click for more details.</li>
+<li> For consequences without (?n), click for mitigation measures. </li>
+</ol>
+
+
+<button id="mitigationBtn" value="myvalue" onclick="location.href='/results/mitigationindex'">Mitigation view</button>
+
+</body>
+</html>
+ 

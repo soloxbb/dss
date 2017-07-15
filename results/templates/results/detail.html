@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 95%;
+}
+
+table td, table th {
+    border: 1px solid #ddd;
+    padding: 2px;
+}
+
+table tr:nth-child(even){background-color: #f2f2f2;}
+
+table tr:hover {background-color: #ddd;}
+
+table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+br {
+  content: " ";
+  display: block;
+  margin: 10px;
+}
+
+</style>
+</head>
+<body>
+
+<b> <font size = "4", style="font-family: Trebuchet MS, Arial, Helvetica, sans-serif">
+You're looking at the detail of potential consequence {{consequence.consequence_text}}!
+</font></b>
+
+     <table class="table table-bordered table-hover table-striped tablesorter">
+<caption><b>Potential Consequence</b></caption>
+<br/>
+                <thead>
+                <tr>                  
+                  <th class="header"> Consequences (Hazards/Critical Conditions) <i class="icon-sort"></i></th>
+                  <th class="header"> Missing Information/Facts <i class="icon-sort"></i></th>           
+                  <th class="header"> Manually Accepted Missing Facts <i class="icon-sort"></i></th>   
+                  <th class="header"> Manually Added Missing Facts <i class="icon-sort"></i></th>             
+                  <th class="header"> Uncertainty/Likelihood <i class="icon-sort"></i></th>
+                  <th class="header"> Severity <i class="icon-sort"></i></th>                 
+                </tr>
+            </thead>
+            <tbody>
+ 
+                <tr>                   
+                    <td><a href="{% url 'results:context' consequence.id %}">{{ consequence.consequence_text }}</a></td>
+                    <td> <ul>
+{% for missinginfo in consequence.missinginfo_set.all %}
+    <li><a href="{% url 'results:missingdetail' missinginfo.id %}">{{ missinginfo.missinginfo_text }}</a></li>{% endfor %} </ul>
+</td>
+                    <td> <ul>
+{% for missinginfo in consequence.manualcomments_set.all %}
+    <li><a href="{% url 'results:manualcommentsdetail' missinginfo.id %}">{{ missinginfo.missinginfo_text }}</a></li>{% endfor %} </ul>
+</td>                  
+                    <td> <ul>
+{% for missinginfo in consequence.manualaddinfo_set.all %}
+    <li><a href="{% url 'results:manualaddeddetail' missinginfo.id %}">{{ missinginfo.missinginfo_text }}</a></li>{% endfor %} </ul>
+</td>                                      
+                    <td> <ul>
+{% for likelihood in consequence.likelihood_set.all %}
+    <p>{{ likelihood.likelihood_text }}</p>{% endfor %} </ul>
+</td>
+                    <td>  
+{% for severity in consequence.severity_set.all %}
+    <p>{{ severity.severity_text }}</p>{% endfor %}  
+</td>
+                </tr> 
+
+            </tbody>
+     </table>
+
+<br/>
+<b>Note:</b>
+<ol>
+<li> Please click Consequence <font size="2" color="red">(Cn)</font> for reasoning context;</li>
+<li> Please click Missing Information <font size="2" color="red">(Fn)</font> for more instructions; </li>
+<li> Please click Manually Accepted Facts for previous archive; </li>
+<li> Please click Manually Added Missing Facts for previous archive. </li>
+
+</ol>
+
+</body>
+</html>
+ 

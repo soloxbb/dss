@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 95%;
+}
+
+table td, table th {
+    border: 1px solid #ddd;
+    padding: 2px;
+}
+
+table tr:nth-child(even){background-color: #f2f2f2;}
+
+table tr:hover {background-color: #ddd;}
+
+table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+br {
+  content: " ";
+  display: block;
+  margin: 10px;
+}
+</style>
+</head>
+<body>
+<b> <font size = "4", style="font-family: Trebuchet MS, Arial, Helvetica, sans-serif">You're looking at the Potential Consequence List view! </font></b>
+<br/>   
+     <table class="table table-bordered table-hover table-striped tablesorter">
+<caption><b>Severity</b></caption>
+                <thead>
+                <tr>                  
+                  <th class="header"> Consequences (Hazards/Critical Conditions) <i class="icon-sort"></i></th>
+                  <th class="header"> Missing Information/Facts  <i class="icon-sort"></i></th>                     
+                  <th class="header"> Uncertainty/Likelihood <i class="icon-sort"></i></th>
+                  <th class="header"> Severity <i class="icon-sort"></i></th>                 
+                </tr>
+            </thead>
+            <tbody>
+
+            {% for consequence in consequence_list %}
+                <tr>                   
+                    <td><a href="{% url 'results:context' consequence.id %}">{{ consequence.consequence_text }}</a></td>
+                    <td> <ul>
+{% for missinginfo in consequence.missinginfo_set.all %}
+    <li><a href="{% url 'results:missingdetail' missinginfo.id %}">{{ missinginfo.missinginfo_text }}</a></li>{% endfor %} </ul>
+</td>                    
+                    <td> <ul>
+{% for likelihood in consequence.likelihood_set.all %}
+    <p>{{ likelihood.likelihood_text }}</li>{% endfor %} </p>
+</td>
+                    <td> <ul>
+{% for severity in consequence.severity_set.all %}
+    <p>{{ severity.severity_text }}</p>{% endfor %} </ul>
+</td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+     </table>
+ 
+<div style="position:relative; left:780px;top:30px;  ">
+<button id="riskmatrixBtn" value="myvalue" onclick="location.href='/results'">Risk matrix view</button>
+</div>
+
+<div style="position:relative; left:980px;  ">
+<button id="mitigationBtn" value="myvalue" onclick="location.href='/results/mitigationindex'">Mitigation view</button>
+</div>
+
+</body>
+</html>
+ 

@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table td, table th {
+    border: 1px solid #ddd;
+    padding: 2px;
+}
+
+table tr:nth-child(even){background-color: #f2f2f2;}
+
+table tr:hover {background-color: #ddd;}
+
+table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+br {
+  content: " ";
+  display: block;
+  margin: 10px;
+}
+</style>
+</head>
+<body>
+<b> You're looking at the suggestions for Missing Information [{{ missinginfo}}] </b> 
+<br/>
+
+
+     <table class="table table-bordered table-hover table-striped tablesorter">
+ 
+<b> </b>
+                <thead>
+                <tr>                  
+                  <th class="header"> Missing information <i class="icon-sort"></i></th>
+                  <th class="header"> Suggestions for obtaining missing data <i class="icon-sort"></i></th>       
+                </tr>
+            </thead>
+            <tbody> 
+                <tr>                   
+                    <td> Explanation of {{ missinginfo }}</td>
+                    <td>Hard-coded, should be replaced by experts' knowledge.<ol><li>sensor: GPR; Measurement: soil permittivity </li>
+			<li>sensor: TDR; Measurement: water content </li></ol></td>
+                </tr> 
+
+            </tbody>
+     </table>
+
+<br/>
+
+<button id="acceptBtn" value="myvalue" onclick="location.href='{% url 'results:manuallyaccept' missinginfo.id %}';">Manually Accept</button>
+
+<button id="addBtn" value="myvalue" onclick="location.href='{% url 'results:addingdata' missinginfo.id %}';">Add missing data</button>
+</body>
+</html>
+ 
+
+

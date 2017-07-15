@@ -1,0 +1,28 @@
+Please adding the missing data for [[{{ missinginfo }}]]!
+
+<style>
+br {
+  content: " ";
+  display: block;
+  margin: 5px;
+}
+</style>
+
+<br/>
+<br/>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action=" " method="post">
+{% csrf_token %}  
+<ul>
+<li>Data:<br/>
+    {{ form.data }}</li> <br/>
+<li>Operator:<br/>
+    {{ form.operator }} </li> <br/>
+<li>Email:<br/>
+    {{ form.email }}  </li>
+
+<br/>
+<li>    <input type="submit" value="Submit" /> </li> </ul>
+</form>

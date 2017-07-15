@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 90%;
+}
+
+table td, table th {
+    border: 1px solid #ddd;
+    padding: 2px;
+}
+
+table tr:nth-child(even){background-color: #f2f2f2;}
+
+table tr:hover {background-color: #ddd;}
+
+table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4cAF50;
+    color: white;
+}
+br {
+  content: " ";
+  display: block;
+  margin: 10px;
+}
+</style>
+</head>
+<body>
+<b> Detail of the added missing data [ {{ manualaddeddata.missinginfo_text }} ]!
+ </b> 
+<br/>
+
+     <table class="table table-bordered table-hover table-striped tablesorter">
+<col width="200">
+                <tr>                  
+                  <th class="header"> Missing Information <i class="icon-sort"></i></th>
+                  <td> {{ manualaddeddata.missinginfo_text }}</td>
+                </tr>
+                <tr>
+                  <th class="header"> Data <i class="icon-sort"></i></th> 
+                  <td> {{ manualaddeddata.data }}</td>
+                </tr>
+                <tr>
+                  <th class="header"> Operator <i class="icon-sort"></i></th>
+                  <td> {{ manualaddeddata.operator }}</td>
+                </tr>
+                <tr>
+                  <th class="header"> Email <i class="icon-sort"></i></th>         
+                  <td> {{ manualaddeddata.email }}</td>
+                </tr> 
+                <tr>
+                  <th class="header"> Modified time <i class="icon-sort"></i></th>         
+                  <td> {{ manualaddeddata.mod_date }}</td>
+                </tr> 
+     </table>
+
+<br/>
+ 
+</body>
+</html>
+ 
+
+
